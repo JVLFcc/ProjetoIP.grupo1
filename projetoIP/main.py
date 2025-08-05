@@ -11,6 +11,21 @@ class Game:
         self.clock = pygame.time.Clock()
         self.font = pygame.font.Font('assets/fonts/BreatheFireIii-PKLOB.ttf', 22)
         self.running = True
+
+        self.character_spritesheet = Spritesheets('assets\images\character.png')
+        self.terrain_spritesheet = Spritesheets('assets/images/terrain.png')
+    
+    def create_tilemap(self):
+        for i, row in enumerate(tilemap):
+            
+            for j, column in enumerate(row):
+                Ground(self, j, i)
+                
+                if column == "B":
+                    Block(self, j, i)
+                
+                if column == "P":
+                    Player(self, j, i)
     
     def new(self):
         #* a new game starts
@@ -21,8 +36,8 @@ class Game:
         self.enemies = pygame.sprite.LayeredUpdates()
         self.attacks = pygame.sprite.LayeredUpdates()
         
-        self.player = Player(self, 1, 2)
-        
+        self.create_tilemap()
+    
     def events(self):
         #* game loop events
         for event in pygame.event.get():
