@@ -26,18 +26,22 @@ class Game:
                 
                 if column == "P":
                     Player(self, j, i)
-    
+                
+                if column == "C":
+                    Collectible(self, j, i)
+
     def new(self):
         #* a new game starts
         self.playing = True
         
         self.all_sprites = pygame.sprite.LayeredUpdates()
         self.blocks = pygame.sprite.LayeredUpdates()
+        self.col = pygame.sprite.LayeredUpdates()
         self.enemies = pygame.sprite.LayeredUpdates()
         self.attacks = pygame.sprite.LayeredUpdates()
         
         self.create_tilemap()
-    
+
     def events(self):
         #* game loop events
         for event in pygame.event.get():
@@ -57,7 +61,7 @@ class Game:
         self.clock.tick(FPS)
         
         pygame.display.update()
-    
+
     def main(self):
         #* game loop
         
@@ -67,7 +71,6 @@ class Game:
             self.draw()
         
         self.running = False
-    
     
     def game_over(self):
         pass
