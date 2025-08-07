@@ -58,7 +58,14 @@ class Player(pygame.sprite.Sprite):
             self.rect.x = old_x
             self.rect.y = old_y
         
-        pygame.sprite.spritecollide(self, self.game.col, True)
+        # lida com a colisão dos coletáveis
+            
+        collected_items = pygame.sprite.spritecollide(self, self.game.col, True)
+        
+        if collected_items:
+            for item in collected_items:
+                self.game.add_points(10)
+            
             
         self.x_change = 0
         self.y_change = 0

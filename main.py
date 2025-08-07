@@ -6,7 +6,7 @@ import sys
 class Game:
     def __init__(self):
         pygame.init()
-        
+        self.points = 0
         self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
         self.clock = pygame.time.Clock()
         self.font = pygame.font.Font('assets/fonts/BreatheFireIii-PKLOB.ttf', 22)
@@ -43,7 +43,7 @@ class Game:
         self.create_tilemap()
 
     def events(self):
-        #* game loop events
+        # loop que checa os eventos
         for event in pygame.event.get():
             
             if event.type == pygame.QUIT:
@@ -51,19 +51,28 @@ class Game:
                 self.running = False
     
     def update(self):
-        #* game loop updates
+        # atualização de sprites
         self.all_sprites.update()
     
+    
     def draw(self):
-        #* game loop draw
+        # função q desenha todos os sprites 
+        # e exibe scoreboard
+        scoreboard = f"Pontos: {self.points}"
         self.screen.fill(BLACK)
         self.all_sprites.draw(self.screen)
         self.clock.tick(FPS)
-        
+
+        text = self.font.render(scoreboard, True, True)
+        self.screen.blit(text, (0,0))
         pygame.display.update()
 
+    # função pra contabilização dos pontos
+    def add_points(self, amount):
+        self.points += amount
+        
     def main(self):
-        #* game loop
+        # loop principal
         
         while self.playing:
             self.events()
