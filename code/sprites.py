@@ -97,7 +97,7 @@ class Block(pygame.sprite.Sprite):
         self.width = TILESIZE
         self.height = TILESIZE
         
-        image_to_load = pygame.image.load('assets/images/rock_round.png')
+        image_to_load = pygame.image.load(r'ProjetoIP.grupo1-main\assets\images\rock_round.png')
         
         self.image = pygame.Surface([self.width, self.height])
         self.image.set_colorkey(BLACK)
