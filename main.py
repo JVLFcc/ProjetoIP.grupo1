@@ -8,12 +8,13 @@ class Game:
         pygame.init()
         
         self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
+        pygame.display.set_caption('Bitcin da Pradaria')
         self.clock = pygame.time.Clock()
-        self.font = pygame.font.Font('ProjetoIP.grupo1-main/assets/fonts\BreatheFireIii-PKLOB.ttf', 22)
+        self.font = pygame.font.Font(r'assets\fonts\BreatheFireIii-PKLOB.ttf', 22)
         self.running = True
 
-        self.character_spritesheet = Spritesheets('ProjetoIP.grupo1-main/assets\images\character.png')
-        self.terrain_spritesheet = Spritesheets(r'ProjetoIP.grupo1-main\assets\images\terrain.png')
+        self.character_spritesheet = Spritesheets('assets\images\character.png')
+        self.terrain_spritesheet = Spritesheets(r'assets\images\terrain.png')
     
     def create_tilemap(self):
         for i, row in enumerate(tilemap):
