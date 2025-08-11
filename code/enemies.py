@@ -3,7 +3,7 @@ import math
 import random
 
 from code.config import ENEMY_LAYER, BULLET_LAYER, TILESIZE, WIN_WIDTH, WIN_HEIGHT
-from code.sprites import Player
+from code.player import *
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
         super().__init__()
@@ -90,9 +90,6 @@ class Enemy(pygame.sprite.Sprite):
             return True  # morreu
         return False  # ainda vivo
 
-
-
-
 # inimigo mais inteligente que pode contornar obstáculos
 class SmartEnemy(Enemy):
     def __init__(self, game, x, y):
@@ -152,7 +149,6 @@ class SmartEnemy(Enemy):
         else:
             self.stuck_counter = 0
 
-
 # inimigo que atira
 class ShootingEnemy(Enemy):
     def __init__(self, game, x, y):
@@ -196,7 +192,6 @@ class ShootingEnemy(Enemy):
                 self.game.all_sprites.add(bullet)
                 self.game.enemy_bullets.add(bullet)
                 self.last_shot = now
-
 
 # projétil do inimigo
 class EnemyBullet(pygame.sprite.Sprite):

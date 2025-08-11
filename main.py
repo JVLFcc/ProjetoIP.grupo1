@@ -1,6 +1,10 @@
 import pygame
 from code.enemies import *
-from code.sprites import *
+from code.block import *
+from code.collectible import *
+from code.ground import *
+from code.player import *
+from code.spritesheets import *
 from code.config import *
 from code.collectibles import *
 import sys

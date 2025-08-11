@@ -3,7 +3,7 @@ import math
 import random
 
 from code.config import *
-from code.sprites import *
+
 
 class SpecialCollectible(pygame.sprite.Sprite):
     def __init__(self, game, x, y, collectible_type, milestone):
