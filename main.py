@@ -427,7 +427,7 @@ class Game:
         
         self.clock.tick(FPS)
         pygame.display.set_caption("BitCinFireshoot")
-        imagem = pygame.image.load("assets\images\single.png")
+        imagem = pygame.image.load("assets/images/single.png")
         pygame.display.set_icon(imagem)
         pygame.display.update()
         
@@ -501,7 +501,7 @@ class Game:
 
             pygame.display.update()
             pygame.display.set_caption("BitCinFireshoot")
-            imagem = pygame.image.load("assets\images\single.png")
+            imagem = pygame.image.load("assets/images/single.png")
             pygame.display.set_icon(imagem)
             self.clock.tick(FPS)
     # jogador morre
@@ -548,7 +548,7 @@ class Game:
             
             pygame.display.update()
             pygame.display.set_caption("BitCinFireshoot")
-            imagem = pygame.image.load("assets\images\single.png")
+            imagem = pygame.image.load("assets/images/single.png")
             pygame.display.set_icon(imagem)
             self.clock.tick(FPS)
             # reiniciando as variáveis
@@ -611,7 +611,7 @@ class Game:
 
             pygame.display.update()
             pygame.display.set_caption("BitCinFireshoot")
-            imagem = pygame.image.load("assets\images\single.png")
+            imagem = pygame.image.load("assets/images/single.png")
             pygame.display.set_icon(imagem)
             self.clock.tick(FPS)
 g = Game()
