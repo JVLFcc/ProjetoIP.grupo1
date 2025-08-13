@@ -77,10 +77,10 @@ class Enemy(pygame.sprite.Sprite):
         player_hit = pygame.sprite.spritecollide(self, self.game.all_sprites, False)
         for sprite in player_hit:
             if isinstance(sprite, Player):
-                # player perdeu vida (implemente sistema de vida depois)
-                print("Player foi atingido!")
-                # por enquanto, o inimigo morre ao tocar o player
+                self.game.take_damage()  
+                # por enquanto, o inimigo morre ao tocar o player(acho q vai continuar assim)
                 self.kill()
+                
 
     def take_damage(self, damage=1):
         # recebe dano
@@ -96,7 +96,7 @@ class SmartEnemy(Enemy):
         super().__init__(game, x, y)
         self.image.fill((150, 0, 150))  # roxo para diferenciar
         self.speed = 0.8
-        self.health = 2  # mais resistente
+        self.health = 2 
         
         # sistema de pathfinding simples
         self.target_x = self.rect.x
@@ -238,6 +238,6 @@ class EnemyBullet(pygame.sprite.Sprite):
         # colisão com player
         for sprite in pygame.sprite.spritecollide(self, self.game.all_sprites, False):
             if isinstance(sprite, Player):
-                print("Player foi atingido por projétil!")
+                self.game.take_damage()
                 self.kill()
                 break

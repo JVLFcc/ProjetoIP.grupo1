@@ -18,15 +18,9 @@ class Game:
         self.enemies_killed = 0
         self.collectibles_spawned = {}  # dicionário para rastrear quais coletáveis já foram spawnados
         
-        # definições dos coletáveis por kills
-        self.collectible_milestones = {
-            5: 'power_up',      # 5 kills = power-up (aumenta velocidade de tiro)
-            10: 'health_pack',   # 10 kills = pack de vida
-            15: 'speed_boost',   # 15 kills = boost de velocidade
-            25: 'mega_power',    # 25 kills = mega power-up
-            35: 'shield',        # 35 kills = escudo temporário
-            50: 'golden_heart',  # 50 kills = coração dourado (muitos pontos)
-        }
+        self.player_health = 4  # Vida máxima
+        self.max_health = 4
+        self.game_over_flag = False
 
         self.bullets = pygame.sprite.Group()
         self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
@@ -71,59 +65,91 @@ class Game:
 
         self.create_tilemap()
         self.find_spawn_points()  
+    # jogador toma dano
+    def take_damage(self):
+        if self.player_health > 0:
+            self.player_health -= 1
+            
+            if self.player_health <= 0:
+                self.game_over_flag = True
+    # desenha a barra de vida
+    def draw_health_bar(self):
+    
+        # Posição da barra de vida
+        bar_x = 10
+        bar_y = 70
+        bar_width = 200
+        bar_height = 20
         
+        # Fundo da barra (cinza)
+        background_rect = pygame.Rect(bar_x, bar_y, bar_width, bar_height)
+        pygame.draw.rect(self.screen, GRAY, background_rect)
+        pygame.draw.rect(self.screen, WHITE, background_rect, 2)
+        
+        # Barra de vida (verde/amarelo/vermelho baseado na vida)
+        health_percentage = self.player_health / self.max_health
+        health_width = int(bar_width * health_percentage)
+        
+        if health_percentage > 0.6:
+            health_color = GREEN
+        elif health_percentage > 0.3:
+            health_color = (255, 255, 0)  # Amarelo
+        else:
+            health_color = RED
+        
+        if health_width > 0:
+            health_rect = pygame.Rect(bar_x, bar_y, health_width, bar_height)
+            pygame.draw.rect(self.screen, health_color, health_rect)
+        
+        # Texto da vida
+        health_text = f"Vida: {self.player_health}/{self.max_health}"
+        text_surface = self.font.render(health_text, True, WHITE)
+        self.screen.blit(text_surface, (bar_x + bar_width + 10, bar_y - 5))
+    # encontra as portas/entradas específicas do mapa
     def find_spawn_points(self):
-        # encontra as portas/entradas específicas do mapa
         self.spawn_points = []
         
         map_height = len(tilemap)
         map_width = len(tilemap[0]) if tilemap else 0
         
-        print("Analisando mapa para encontrar portas...")
-        print(f"Dimensões do mapa: {map_width} x {map_height}")
-        
         # verifica borda superior (primeira linha)
-        print("Verificando borda superior...")
+  
         for col in range(map_width):
             if tilemap[0][col] == '.':
                 # encontrou uma abertura na borda superior
                 self.spawn_points.append((col * TILESIZE, 0))
-                print(f"Porta encontrada no topo: coluna {col}")
-        
+               
+      
         # verifica borda inferior (última linha)
-        print("Verificando borda inferior...")
+
         for col in range(map_width):
             if tilemap[map_height-1][col] == '.':
                 # Encontrou uma abertura na borda inferior
                 self.spawn_points.append((col * TILESIZE, (map_height-1) * TILESIZE))
-                print(f"Porta encontrada embaixo: coluna {col}")
+         
         
         # Verifica borda esquerda (primeira coluna)
-        print("Verificando borda esquerda...")
+     
         for row in range(map_height):
             if tilemap[row][0] == '.':
                 # Encontrou uma abertura na borda esquerda
                 self.spawn_points.append((0, row * TILESIZE))
-                print(f"Porta encontrada à esquerda: linha {row}")
+           
         
         # Verifica borda direita (última coluna)
-        print("Verificando borda direita...")
+    
         for row in range(map_height):
             if tilemap[row][map_width-1] == '.':
                 # Encontrou uma abertura na borda direita
                 self.spawn_points.append(((map_width-1) * TILESIZE, row * TILESIZE))
-                print(f"Porta encontrada à direita: linha {row}")
-        
-        print(f"Total de portas encontradas: {len(self.spawn_points)}")
-        
+         
         # se ainda não encontrou portas, vamos procurar por aberturas próximas às bordas
         if len(self.spawn_points) == 0:
-            print("Nenhuma porta nas bordas encontrada. Procurando aberturas próximas...")
             self.find_near_border_openings()
         
         # se ainda assim não encontrou, adiciona pontos manuais
         if len(self.spawn_points) == 0:
-            print("Adicionando pontos de spawn manuais...")
+   
             self.add_manual_spawn_points(map_width, map_height)
     # procura por aberturas uma célula para dentro das bordas
     def find_near_border_openings(self):
@@ -138,7 +164,7 @@ class Game:
                     # verifica se tem caminho até a borda
                     if tilemap[0][col] == '.':
                         self.spawn_points.append((col * TILESIZE, TILESIZE))
-                        print(f"Abertura próxima ao topo encontrada: coluna {col}")
+             
         
         # verifica penúltima linha (próximo à borda inferior)
         if map_height > 2:
@@ -146,15 +172,13 @@ class Game:
                 if tilemap[map_height-2][col] == '.' and col < map_width:
                     if tilemap[map_height-1][col] == '.':
                         self.spawn_points.append((col * TILESIZE, (map_height-2) * TILESIZE))
-                        print(f"Abertura próxima ao fundo encontrada: coluna {col}")
-        
+               
         # Verifica segunda coluna (próximo à borda esquerda)
         if map_width > 1:
             for row in range(map_height):
                 if tilemap[row][1] == '.':
                     if tilemap[row][0] == '.':
                         self.spawn_points.append((TILESIZE, row * TILESIZE))
-                        print(f"Abertura próxima à esquerda encontrada: linha {row}")
         
         # Verifica penúltima coluna (próximo à borda direita)
         if map_width > 2:
@@ -162,7 +186,7 @@ class Game:
                 if tilemap[row][map_width-2] == '.':
                     if tilemap[row][map_width-1] == '.':
                         self.spawn_points.append(((map_width-2) * TILESIZE, row * TILESIZE))
-                        print(f"Abertura próxima à direita encontrada: linha {row}")
+             
     # gera pontos típicos de spawn
     def add_manual_spawn_points(self, map_width, map_height):
         
@@ -183,7 +207,7 @@ class Game:
         
         # entradas laterais (meio das laterais)
         mid_row = map_height // 2
-        for offset in range(-1, 2):  # -1, 0, 1
+        for offset in range(-1, 2):  
             row = mid_row + offset
             if 0 <= row < map_height:
                 # Esquerda
@@ -200,7 +224,7 @@ class Game:
                 0 <= grid_x < map_width and 
                 tilemap[grid_y][grid_x] != 'B'):
                 self.spawn_points.append((x, y))
-                print(f"Ponto manual adicionado: ({grid_x}, {grid_y})")
+        
 
     def check_free_space(self, row, col):
         # verifica se há espaço livre ao redor de uma posição
@@ -213,7 +237,8 @@ class Game:
                     tilemap[ni][nj] == '.'):
                     free_count += 1
         
-        return free_count >= 3  # precisa de pelo menos 3 espaços livres ao redor
+        return free_count >= 3  
+    
     # gerenciamento do spawn automatico de inimigos
     def handle_enemy_spawning(self):
         current_enemies = len(self.enemies)
@@ -251,7 +276,7 @@ class Game:
     def spawn_enemy(self):
         
         if not self.spawn_points:
-            print("Nenhum ponto de spawn disponível!")
+
             return False
         
         # escolhe um ponto de spawn aleatório
@@ -276,47 +301,56 @@ class Game:
             
             enemy_type = random.choices(enemy_types, weights=weights)[0]
             enemy_type(self, grid_x, grid_y)
-            print(f"Inimigo spawnou em ({grid_x}, {grid_y})")
+ 
             return True
         except Exception as e:
-            print(f"Erro ao spawnar inimigo: {e}")
+
             return False
     # loop que checa os eventos
     def events(self):
         for event in pygame.event.get():
-            
             if event.type == pygame.QUIT:
                 self.playing = False
                 self.running = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    action = self.pause_menu()
+                    if action == "quit":
+                        self.playing = False
+                        self.running = False
+                    elif action == "menu":
+                        self.playing = False
+                    elif action == "continue":
+                        pass
     # atualização de sprites
     def update(self):
         
         self.all_sprites.update()
         # aqui é chamado o sistema de spawn dos sprites(inimigos)
         self.handle_enemy_spawning()
-    # função q desenha todos os sprites 
+    
+        if self.game_over_flag:
+            self.playing = False
+            
+
+    # função q desenha todos os sprites e scoreboard
     def draw(self):
-        # e exibe scoreboard
         self.screen.fill(BLACK)
         self.all_sprites.draw(self.screen)
-        
         # Scoreboard
         scoreboard = f"Pontos: {self.points}"
         text = self.font.render(scoreboard, True, WHITE)
         self.screen.blit(text, (10, 10))
-        
-        # contador de inimigos (pra debug)
-        enemy_count = f"Inimigos: {len(self.enemies)}"
-        enemy_text = self.font.render(enemy_count, True, WHITE)
-        self.screen.blit(enemy_text, (10, 40)) 
+        # chama a função de barra de vidaa
+        self.draw_health_bar()
         
         self.clock.tick(FPS)
         pygame.display.update()
+        
     # chamado quando um inimigo morre
     def enemy_killed(self):
         
         self.enemies_killed += 1
-        print(f"Inimigos mortos: {self.enemies_killed}")
         
         # verifica se deve spawnar um coletável especial
         self.check_collectible_spawn()
@@ -330,25 +364,24 @@ class Game:
                 
                 self.spawn_special_collectible(collectible_type, kills_required)
                 self.collectibles_spawned[kills_required] = collectible_type
-                print(f"Coletável especial spawnou: {collectible_type}")
-    # Spawna um coletável especial em local aleatório 
+    # spawna um coletável especial em local aleatório 
     def spawn_special_collectible(self, collectible_type, milestone):
         
-        # Encontra uma posição válida no mapa
+        # encontra uma posição válida no mapa
         attempts = 0
         max_attempts = 50
         
         while attempts < max_attempts:
-            # Escolhe uma posição aleatória no mapa
+            # escolhe uma posição aleatória no mapa
             map_width = len(tilemap[0]) if tilemap else 0
             map_height = len(tilemap)
             
             x = random.randint(1, map_width - 2)
             y = random.randint(1, map_height - 2)
             
-            # Verifica se a posição é válida (não é bloco)
+            # verifica se a posição é válida (não é bloco)
             if tilemap[y][x] == '.':
-                # Verifica se não há outros sprites na posição
+                # verifica se não há outros sprites na posição
                 pos_occupied = False
                 test_rect = pygame.Rect(x * TILESIZE, y * TILESIZE, TILESIZE, TILESIZE)
                 
@@ -374,22 +407,165 @@ class Game:
             self.events()
             self.update()
             self.draw()
-        
+        if self.game_over_flag:
+            self.playing = False
         self.running = False
-    
+    # jogador pausa
+    def pause_menu(self):
+        # só essas por enqnt
+        menu_options = ["Continuar", "Voltar ao Menu", "Sair"]
+        selected_index = 0
+
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return "quit"
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_UP:
+                        selected_index = (selected_index - 1) % len(menu_options)
+                    elif event.key == pygame.K_DOWN:
+                        selected_index = (selected_index + 1) % len(menu_options)
+                    elif event.key == pygame.K_RETURN:
+                        if selected_index == 0:
+                            return "continue"
+                        elif selected_index == 1:
+                            return "menu"
+                        elif selected_index == 2:
+                            return "quit"
+
+            # fundo escuro semi-transparente
+            overlay = pygame.Surface((WIN_WIDTH, WIN_HEIGHT))
+            overlay.set_alpha(180)
+            overlay.fill(BLACK)
+            self.screen.blit(overlay, (0, 0))
+
+            # título
+            title_text = self.font.render("PAUSADO", True, WHITE)
+            title_rect = title_text.get_rect(center=(WIN_WIDTH // 2, WIN_HEIGHT // 2 - 100))
+            self.screen.blit(title_text, title_rect)
+
+            # opções
+            for i, option in enumerate(menu_options):
+                if i == selected_index:
+                    color = RED
+                    prefix = "> "
+                else:
+                    color = WHITE
+                    prefix = "  "
+                option_text = self.font.render(prefix + option, True, color)
+                option_rect = option_text.get_rect(center=(WIN_WIDTH // 2, WIN_HEIGHT // 2 + i * 40))
+                self.screen.blit(option_text, option_rect)
+
+            pygame.display.update()
+            self.clock.tick(FPS)
+    # jogador morre
     def game_over(self):
-        pass
-    
+        if not self.game_over_flag:
+            return None  # Nenhum game over ocorreu
+
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return "quit"
+
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        self.points = 0
+                        return "restart"
+                    elif event.key == pygame.K_ESCAPE:
+                        return "quit"
+            
+            # Tela de fundo
+            self.screen.fill(BLACK)
+
+            # título Game Over
+            game_over_text = self.font.render("GAME OVER", True, RED)
+            game_over_rect = game_over_text.get_rect(center=(WIN_WIDTH // 2, WIN_HEIGHT // 2 - 100))
+            self.screen.blit(game_over_text, game_over_rect)
+
+            # pontuação final
+            score_text = self.font.render(f"SCORE FINAL: {self.points}", True, WHITE)
+            score_rect = score_text.get_rect(center=(WIN_WIDTH // 2, WIN_HEIGHT // 2 - 50))
+            self.screen.blit(score_text, score_rect)
+
+            # instruções
+            restart_text = self.font.render("Pressione SPACE para jogar novamente", True, WHITE)
+            restart_rect = restart_text.get_rect(center=(WIN_WIDTH // 2, WIN_HEIGHT // 2 + 50))
+            self.screen.blit(restart_text, restart_rect)
+
+            quit_text = self.font.render("Pressione ESC para sair", True, GRAY)
+            quit_rect = quit_text.get_rect(center=(WIN_WIDTH // 2, WIN_HEIGHT // 2 + 80))
+            self.screen.blit(quit_text, quit_rect)
+            
+            pygame.display.update()
+            self.clock.tick(FPS)
+            # reiniciando as variáveis
+            self.player_health = 4  # Vida máxima
+            self.max_health = 4
+            self.game_over_flag = False
     def intro_screen(self):
-        pass
+        # tenta carregar as imagens
+        try:
+            background_image = pygame.image.load('assets/images/apenascomece.png').convert()
+            background_image = pygame.transform.scale(background_image, (WIN_WIDTH, WIN_HEIGHT))
+        except pygame.error as e:
+            print(f"Erro ao carregar a imagem de fundo: {e}")
+            background_image = None
+        # opções do menu(só essas, por enquanto)
+        menu_options = ["Iniciar Jogo", "Sair"]
+        # indice selecionado(nesse caso, indice das opções)
+        selected_index = 0
 
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return False
+
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_UP:
+                        selected_index = (selected_index - 1) % len(menu_options)
+                    elif event.key == pygame.K_DOWN:
+                        selected_index = (selected_index + 1) % len(menu_options)
+                    elif event.key == pygame.K_RETURN:
+                        if selected_index == 0:  # Iniciar Jogo
+                            return True
+                        elif selected_index == 1:  # Sair
+                            return False
+                        
+            if background_image:
+                self.screen.blit(background_image, (0, 0))
+            else:
+                # Se a imagem falhou ao carregar, preenche a tela com preto
+                self.screen.fill(BLACK)
+
+            # Título
+            title_text = self.font.render("BitCin Fireshoot", True, WHITE)
+            title_rect = title_text.get_rect(center=(WIN_WIDTH // 2, WIN_HEIGHT // 2 - 100))
+            self.screen.blit(title_text, title_rect)
+
+            # Opções do menu
+            for i, option in enumerate(menu_options):
+                if i == selected_index:
+                    color = RED
+                    prefix = "> "
+                else:
+                    color = WHITE
+                    prefix = "  "
+
+                option_text = self.font.render(prefix + option, True, color)
+                option_rect = option_text.get_rect(center=(WIN_WIDTH // 2, WIN_HEIGHT // 2 + i * 40))
+                self.screen.blit(option_text, option_rect)
+
+            pygame.display.update()
+            self.clock.tick(FPS)
 g = Game()
-g.intro_screen()
-g.new()
 
-while g.running:
+while True:
+    if not g.intro_screen():
+        break
+
+    g.new()
     g.main()
-    g.game_over()
-
+    action = g.game_over()
 pygame.quit()
 sys.exit()
