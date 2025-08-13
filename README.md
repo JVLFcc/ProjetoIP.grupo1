@@ -1,4 +1,4 @@
-<img width="222" height="687" alt="image" src="https://github.com/user-attachments/assets/5252ca85-e676-4403-b6ef-e7ad5b84fa0c" /># Projeto Final de Introdução à Programação 👋
+ /># Projeto Final de Introdução à Programação 👋
 
 Olá! Somos estudantes de Ciência da Computação do CIN- UFPE. Estamos realizando um projeto de jogo em Python baseado em POO.
 
