@@ -58,3 +58,4 @@ class Bullet(pygame.sprite.Sprite):
             # adiciona pontos por matar inimigos
             for enemy in hit_enemies:
                 self.game.add_points(50)
+                self.game.register_enemy_kill()

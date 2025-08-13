@@ -22,6 +22,10 @@ class Player(pygame.sprite.Sprite):
         self.y_change = 0
         
         self.facing = 'down'
+        # velocidades
+        self.normal_speed = PLAYER_SPEED
+        self.slow_speed = PLAYER_SLOW_SPEED
+        self.current_speed = self.normal_speed
         
         self.image = self.game.character_spritesheet.get_sprite(3, 2, self.width, self.height)
         
@@ -71,6 +75,7 @@ class Player(pygame.sprite.Sprite):
         if collected_gun:
             for item in collected_gun:
                 self.shoot_cooldown = 100
+                self.game.add_gun_collected() 
         
         if bonus_points:
             self.game.add_points(500)
@@ -81,20 +86,25 @@ class Player(pygame.sprite.Sprite):
     def movement(self):
         keys = pygame.key.get_pressed()
         
+        if keys[pygame.K_LSHIFT] or keys[pygame.K_RSHIFT]:
+            self.current_speed = self.slow_speed
+        else:
+            self.current_speed = self.normal_speed
+    
         if keys[pygame.K_a]:
-            self.x_change -= PLAYER_SPEED
+            self.x_change -= self.current_speed
             self.facing = 'left'
         
         if keys[pygame.K_d]:
-            self.x_change += PLAYER_SPEED
+            self.x_change += self.current_speed
             self.facing = 'right'
         
         if keys[pygame.K_w]:
-            self.y_change -= PLAYER_SPEED
+            self.y_change -= self.current_speed
             self.facing = 'up'
         
         if keys[pygame.K_s]:
-            self.y_change += PLAYER_SPEED
+            self.y_change += self.current_speed
             self.facing = 'down'
         
         # tiro

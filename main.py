@@ -18,8 +18,11 @@ class Game:
         self.points = 0
         # sistema de kills e coletáveis
         self.enemies_killed = 0
-        self.collectibles_spawned = {}  # dicionário para rastrear quais coletáveis já foram spawnados
-        
+        self.kills_for_collectible = 10  
+        self.collectible_types = ['heart', 'gun', 'points'] # tipos disponiveis!
+            
+        self.collectible_weights = [50, 25, 25]  # 50% heart, 25% gun, 25% points
+        self.guns_collected = 0
         self.player_health = 4  # Vida máxima
         self.max_health = 4
         self.game_over_flag = False
@@ -87,7 +90,7 @@ class Game:
     
         # Posição da barra de vida
         bar_x = 10
-        bar_y = 70
+        bar_y = 90
         bar_width = 200
         bar_height = 20
         
@@ -234,8 +237,12 @@ class Game:
                 0 <= grid_x < map_width and 
                 tilemap[grid_y][grid_x] != 'B'):
                 self.spawn_points.append((x, y))
-        
-
+    # checa se deveria spawnar um coletável
+    def check_collectible_spawn(self):
+        if self.enemies_killed >= self.kills_for_collectible:
+            if self.spawn_random_collectible():
+                self.enemies_killed = 0  # reseta o contador
+    
     def check_free_space(self, row, col):
         # verifica se há espaço livre ao redor de uma posição
         free_count = 0
@@ -248,7 +255,9 @@ class Game:
                     free_count += 1
         
         return free_count >= 3  
-    
+    # registra arma coletada
+    def add_gun_collected(self):
+        self.guns_collected += 1
     # gerenciamento do spawn automatico de inimigos
     def handle_enemy_spawning(self):
         current_enemies = len(self.enemies)
@@ -338,11 +347,64 @@ class Game:
         self.all_sprites.update()
         # aqui é chamado o sistema de spawn dos sprites(inimigos)
         self.handle_enemy_spawning()
-    
+        self.check_collectible_spawn()
         if self.game_over_flag:
             self.playing = False
-            
+    #registra as kills
+    def register_enemy_kill(self):
+        """Registra morte de inimigo e verifica spawn de coletável"""
+        self.enemies_killed += 1
+        print(f"Enemy killed! Total: {self.enemies_killed}")  # debug
+        
+        # verifica imediatamente se deve spawnar
+        if self.enemies_killed >= self.kills_for_collectible:
+            print(f"Spawning collectible after {self.enemies_killed} kills!")  # debug
+            if self.spawn_random_collectible():
+                self.enemies_killed = 0
+                print("Kill counter reset!")  # debug   
 
+    def spawn_random_collectible(self):
+        # escolhe tipo aleatório
+        collectible_type = random.choices(self.collectible_types, weights=self.collectible_weights)[0]  
+        
+        # encontra posição válida no mapa
+        attempts = 0
+        max_attempts = 50
+        
+        while attempts < max_attempts:
+            map_width = len(tilemap[0]) if tilemap else 0
+            map_height = len(tilemap)
+            
+            x = random.randint(1, map_width - 2)
+            y = random.randint(1, map_height - 2)
+            
+            # verifica se é espaço livre
+            if tilemap[y][x] == '.':
+                # verifica se não há sprites na posição
+                pos_occupied = False
+                test_rect = pygame.Rect(x * TILESIZE, y * TILESIZE, TILESIZE, TILESIZE)
+                
+                for sprite in self.all_sprites:
+                    if (hasattr(sprite, 'rect') and 
+                        sprite.rect.colliderect(test_rect) and 
+                        not isinstance(sprite, Ground)):
+                        pos_occupied = True
+                        break
+                
+                if not pos_occupied:
+                    # spawna o coletável baseado no tipo
+                    if collectible_type == 'heart':
+                        Collectible(self, x, y)
+                    elif collectible_type == 'gun':
+                        Gun_boost(self, x, y)
+                    elif collectible_type == 'points':
+                        Bonus_points(self, x, y)
+                    
+                    return True
+            
+            attempts += 1 
+
+        return False
     # função q desenha todos os sprites e scoreboard
     def draw(self):
         self.screen.fill(BLACK)
@@ -351,6 +413,15 @@ class Game:
         scoreboard = f"Pontos: {self.points}"
         text = self.font.render(scoreboard, True, WHITE)
         self.screen.blit(text, (10, 10))
+        # progresso para o proximo coletável
+        remaining = self.kills_for_collectible - self.enemies_killed
+        progress_text = f"Próximo coletável: {remaining} kills"
+        progress_surface = self.font.render(progress_text, True, (200, 200, 0))
+        self.screen.blit(progress_surface, (10, 35))
+        # texto para armas
+        guns_text = f"Armas: {self.guns_collected}"
+        guns_surface = self.font.render(guns_text, True, (0, 255, 255))  # cor ciano
+        self.screen.blit(guns_surface, (10, 60))
         # chama a função de barra de vidaa
         self.draw_health_bar()
         
@@ -363,51 +434,7 @@ class Game:
         self.enemies_killed += 1
         
         # verifica se deve spawnar um coletável especial
-        self.check_collectible_spawn()
-    # verifica se algum milestone foi atingido e spawna coletável
-    def check_collectible_spawn(self):
-        
-        for kills_required, collectible_type in self.collectible_milestones.items():
-            # se atingiu o milestone e ainda não spawnou este coletável
-            if (self.enemies_killed >= kills_required and 
-                kills_required not in self.collectibles_spawned):
-                
-                self.spawn_special_collectible(collectible_type, kills_required)
-                self.collectibles_spawned[kills_required] = collectible_type
-    # spawna um coletável especial em local aleatório 
-    def spawn_special_collectible(self, collectible_type, milestone):
-        
-        # encontra uma posição válida no mapa
-        attempts = 0
-        max_attempts = 50
-        
-        while attempts < max_attempts:
-            # escolhe uma posição aleatória no mapa
-            map_width = len(tilemap[0]) if tilemap else 0
-            map_height = len(tilemap)
-            
-            x = random.randint(1, map_width - 2)
-            y = random.randint(1, map_height - 2)
-            
-            # verifica se a posição é válida (não é bloco)
-            if tilemap[y][x] == '.':
-                # verifica se não há outros sprites na posição
-                pos_occupied = False
-                test_rect = pygame.Rect(x * TILESIZE, y * TILESIZE, TILESIZE, TILESIZE)
-                
-                for sprite in self.all_sprites:
-                    if (hasattr(sprite, 'rect') and 
-                        sprite.rect.colliderect(test_rect) and 
-                        not isinstance(sprite, Ground)):
-                        pos_occupied = True
-                        break
-                
-                if not pos_occupied:
-                    # Spawna o coletável especial
-                    SpecialCollectible(self, x, y, collectible_type, milestone)
-                    break
-            
-            attempts += 1
+  
     def add_points(self, amount):
         self.points += amount
     
@@ -483,7 +510,10 @@ class Game:
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
+                        # resetando as variáveis
                         self.points = 0
+                        self.enemies_killed = 0
+                        self.guns_collected = 0
                         return "restart"
                     elif event.key == pygame.K_ESCAPE:
                         return "quit"
@@ -516,6 +546,7 @@ class Game:
             self.player_health = 4  # Vida máxima
             self.max_health = 4
             self.game_over_flag = False
+            
     def intro_screen(self):
         # tenta carregar as imagens
         try:

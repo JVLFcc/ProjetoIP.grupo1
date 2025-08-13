@@ -4,6 +4,7 @@ import random
 
 from code.config import ENEMY_LAYER, BULLET_LAYER, TILESIZE, WIN_WIDTH, WIN_HEIGHT
 from code.player import *
+
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
         super().__init__()
@@ -24,9 +25,11 @@ class Enemy(pygame.sprite.Sprite):
         # velocidade
         self.speed = 1  
         
-        # imagem (se quiser adicionar uma imagem, muda aqui)
-        self.image = pygame.Surface([self.width, self.height])
-        self.image.fill((255, 0, 0))  # Vermelho
+        # Carrega a imagem
+        self.image = pygame.image.load("assets/images/skeleton_transparent.png").convert_alpha()
+
+        # Redimensiona para caber no tile
+        self.image = pygame.transform.scale(self.image, (self.width*1.5, self.height*1.5))
         
         self.rect = self.image.get_rect()
         self.rect.x = self.x
@@ -94,14 +97,16 @@ class Enemy(pygame.sprite.Sprite):
 class SmartEnemy(Enemy):
     def __init__(self, game, x, y):
         super().__init__(game, x, y)
-        self.image.fill((150, 0, 150))  # roxo para diferenciar
-        self.speed = 0.8
-        self.health = 2 
-        
+        self.stuck_counter = 0
         # sistema de pathfinding simples
         self.target_x = self.rect.x
         self.target_y = self.rect.y
-        self.stuck_counter = 0
+
+        self.image = pygame.image.load("assets\images\inimigo_inteligente.png").convert_alpha()  
+        self.image = pygame.transform.scale(self.image, (self.width*1.5, self.height*1.5))
+
+        self.speed = 0.8
+        self.health = 2 
 
     def move_towards_player(self):
         # Movimento mais inteligente
@@ -153,7 +158,8 @@ class SmartEnemy(Enemy):
 class ShootingEnemy(Enemy):
     def __init__(self, game, x, y):
         super().__init__(game, x, y)
-        self.image.fill((255, 100, 0))  # cor laranja
+        self.image = pygame.image.load("assets/images/ghost_transparent.png").convert_alpha()  
+        self.image = pygame.transform.scale(self.image, (self.width*1.5, self.height*1.5))
         self.speed = 0.5  # velocidade desse inimigo
         self.health = 3
         
