@@ -1,4 +1,4 @@
-# Projeto Final de Introdução à Programação 👋
+<img width="222" height="687" alt="image" src="https://github.com/user-attachments/assets/5252ca85-e676-4403-b6ef-e7ad5b84fa0c" /># Projeto Final de Introdução à Programação 👋
 
 Olá! Somos estudantes de Ciência da Computação do CIN- UFPE. Estamos realizando um projeto de jogo em Python baseado em POO.
 
@@ -46,52 +46,9 @@ Vale ressaltar que alguns membros, embora não utilizem github, contribuiram for
 
 
 ## Arquitetura do projeto:
-ProjetoIP.grupo1/
-│
-├── assets/
-│   ├── fonts/
-│   │   └── BreatheFireIi-PKLOB.ttf         
-│   │
-│   └── images/                              
-│       ├── apenascomece.jpg
-│       ├── apenascomece.png
-│       ├── attack.png
-│       ├── character.png
-│       ├── cin_logo_branco.png
-│       ├── cin_logo_preto.png
-│       ├── cin_logo_vermelho.png
-│       ├── enemy.png
-│       ├── gameover.png
-│       ├── ghost_transparent.png
-│       ├── gun_boost.jpg
-│       ├── heart.png
-│       ├── icons8-python-8.png
-│       ├── inimigo_inteligente.png
-│       ├── introbackground.png
-│       ├── points.jpg
-│       ├── Rock Pile.png
-│       ├── rock_round.png
-│       ├── single.png
-│       ├── skeleton_transparent.png
-│       ├── slash.png
-│       └── terrain.png
-│
-├── code/                                   
-│   ├── __pycache__/                         
-│   ├── __init__.py
-│   ├── block.py
-│   ├── bonus_points.py
-│   ├── bullet.py
-│   ├── collectible.py
-│   ├── collectibles.py
-│   ├── config.py
-│   ├── enemies.py
-│   └── ground.py
-│
-└── main.py                                 
 
-
-
+<img width="222" height="687" alt="image" src="https://github.com/user-attachments/assets/a8d3d9c4-869f-4cce-969b-912f4be5ce50" />
+                               
 
 ## Desafios e Erros
 
@@ -122,5 +79,6 @@ Nós lidamos com isso esboçando passo a passo o que queriamos fazer e como quer
 
 [![CIN- UFPE License](https://img.shields.io/badge/CIN_UFPE_LICENSE-CIN_UFPE-%23DB1E2F
 )](https://portal.cin.ufpe.br/)
+
 
 
