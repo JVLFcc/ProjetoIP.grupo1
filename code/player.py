@@ -30,7 +30,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.y = self.y
 
         self.last_shot = 0
-        self.shoot_cooldown = 200  
+        self.shoot_cooldown = 500
 
     def shoot(self):
         now = pygame.time.get_ticks()
@@ -60,11 +60,20 @@ class Player(pygame.sprite.Sprite):
         # lida com a colisão dos coletáveis
             
         collected_items = pygame.sprite.spritecollide(self, self.game.col, True)
+        collected_gun = pygame.sprite.spritecollide(self, self.game.gun, True)
+        bonus_points = pygame.sprite.spritecollide(self, self.game.point_boost, True)
         
         if collected_items:
             for item in collected_items:
-                self.game.add_points(10)
-            
+                if self.game.player_health < 4:
+                    self.game.add_life(1)
+
+        if collected_gun:
+            for item in collected_gun:
+                self.shoot_cooldown = 100
+        
+        if bonus_points:
+            self.game.add_points(500)
             
         self.x_change = 0
         self.y_change = 0

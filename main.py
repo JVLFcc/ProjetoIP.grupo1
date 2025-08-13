@@ -7,6 +7,8 @@ from code.player import *
 from code.spritesheets import *
 from code.config import *
 from code.collectibles import *
+from code.gun_boost import *
+from code.bonus_points import *
 import sys
 import random
 
@@ -50,6 +52,12 @@ class Game:
                 
                 if column == "C":
                     Collectible(self, j, i)
+                
+                if column == 'G':
+                    Gun_boost(self, j, i)
+                
+                if column == 'O':
+                    Bonus_points(self, j, i)
 
     def new(self):
         self.playing = True
@@ -57,6 +65,8 @@ class Game:
         self.all_sprites = pygame.sprite.LayeredUpdates()
         self.blocks = pygame.sprite.LayeredUpdates()
         self.col = pygame.sprite.LayeredUpdates()
+        self.gun = pygame.sprite.LayeredUpdates()
+        self.point_boost = pygame.sprite.LayeredUpdates()
         self.enemies = pygame.sprite.LayeredUpdates()
         self.attacks = pygame.sprite.LayeredUpdates()
         self.bullets = pygame.sprite.LayeredUpdates()
@@ -400,6 +410,9 @@ class Game:
             attempts += 1
     def add_points(self, amount):
         self.points += amount
+    
+    def add_life(self, amount):
+        self.player_health += amount
         
     def main(self):
         # loop principal
