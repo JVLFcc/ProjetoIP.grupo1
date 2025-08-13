@@ -102,7 +102,7 @@ class SmartEnemy(Enemy):
         self.target_x = self.rect.x
         self.target_y = self.rect.y
 
-        self.image = pygame.image.load("assets\images\inimigo_inteligente.png").convert_alpha()  
+        self.image = pygame.image.load("assets/images/inimigo_inteligente.png").convert_alpha()  
         self.image = pygame.transform.scale(self.image, (self.width*1.5, self.height*1.5))
 
         self.speed = 0.8

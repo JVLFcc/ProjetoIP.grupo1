@@ -38,7 +38,7 @@ class Game:
         self.spawn_cooldown = 3000  # 3 segundos entre spawns
         self.max_enemies = 10  # máximo de inimigos na tela
 
-        self.character_spritesheet = Spritesheets('assets\images\character.png')
+        self.character_spritesheet = Spritesheets('assets/images/character.png')
         self.terrain_spritesheet = Spritesheets('assets/images/terrain.png')
     
     def create_tilemap(self):
@@ -426,6 +426,9 @@ class Game:
         self.draw_health_bar()
         
         self.clock.tick(FPS)
+        pygame.display.set_caption("BitCinFireshoot")
+        imagem = pygame.image.load("assets\images\single.png")
+        pygame.display.set_icon(imagem)
         pygame.display.update()
         
     # chamado quando um inimigo morre
@@ -497,6 +500,9 @@ class Game:
                 self.screen.blit(option_text, option_rect)
 
             pygame.display.update()
+            pygame.display.set_caption("BitCinFireshoot")
+            imagem = pygame.image.load("assets\images\single.png")
+            pygame.display.set_icon(imagem)
             self.clock.tick(FPS)
     # jogador morre
     def game_over(self):
@@ -541,6 +547,9 @@ class Game:
             self.screen.blit(quit_text, quit_rect)
             
             pygame.display.update()
+            pygame.display.set_caption("BitCinFireshoot")
+            imagem = pygame.image.load("assets\images\single.png")
+            pygame.display.set_icon(imagem)
             self.clock.tick(FPS)
             # reiniciando as variáveis
             self.player_health = 4  # Vida máxima
@@ -601,6 +610,9 @@ class Game:
                 self.screen.blit(option_text, option_rect)
 
             pygame.display.update()
+            pygame.display.set_caption("BitCinFireshoot")
+            imagem = pygame.image.load("assets\images\single.png")
+            pygame.display.set_icon(imagem)
             self.clock.tick(FPS)
 g = Game()
 
