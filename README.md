@@ -14,9 +14,16 @@ Olá! Somos estudantes de Ciência da Computação do CIN- UFPE. Estamos realiza
 - sys: Foi essencial no nosso projeto, pois possui funções e variáveis usadas para interagir com o interpretador Python e com o sistema operacional.
 - random, time: Utilizado no spawn de inimigos e coletáveis.
 - math: Utilizado na implementação da mecânica de tiros.
+
 **VsCode:** IDE utilizada.
 
+**Piskel:** Utilizado para criar pixelarts que podem, ou não, ter sido implementadas (perdoem a falta de dom artístico).
+
+**Figma:** Idealização de como queríamos algumas telas, mapas e elementos visuais.
+
 **Github:** Colaboração remota, controle de versão, Branchs para colaboração paralela, hospedagem do projeto e Issues para oraganização de tarefas.
+
+**Ferramentas de Comunicação:** Whatsapp para comunicação mais informal entre o grupo, e Discord para atualizar monitores responsáveis e tirar dúvidas.
 
 ## Membros Participantes
 Vale ressaltar que alguns membros, embora não utilizem github, contribuiram fortemente por fora. 
@@ -101,10 +108,18 @@ Eu achei que o projeto em si tem um processo de aprendizagem exponencial levando
 ## Link para a versão mais completa e detalhada do relatório
 https://docs.google.com/document/d/1bdHvsmIGJHz7NyopHqFJzUsIsbVDl_cyaSc3KNsGQfU/edit?pli=1&tab=t.0
 
+## Menção Honrosa
+- Deus abençoe vocês 😭🙏
+
+<img width="401" height="214" alt="image" src="https://github.com/user-attachments/assets/172df9d6-aae2-42b6-87a6-4110046ce7f0" />
+<img width="397" height="217" alt="image" src="https://github.com/user-attachments/assets/f048f35a-6814-489b-bbe9-487275ab3685" />
+<img width="402" height="228" alt="image" src="https://github.com/user-attachments/assets/49939a15-09a5-43dc-a991-361de9fdf477" />
+
 ## Badges
 
 [![CIN- UFPE License](https://img.shields.io/badge/CIN_UFPE_LICENSE-CIN_UFPE-%23DB1E2F
 )](https://portal.cin.ufpe.br/)
+
 
 
 
