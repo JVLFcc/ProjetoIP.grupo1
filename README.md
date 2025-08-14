@@ -84,9 +84,11 @@ Nós lidamos com isso esboçando passo a passo o que queriamos fazer e como quer
 
 ## Screenshots
 
-<img width="1023" height="828" alt="image" src="https://github.com/user-attachments/assets/ff292d72-041f-49c4-942b-349c134cd480" />
+<img width="1018" height="824" alt="image" src="https://github.com/user-attachments/assets/e8af939a-784e-42aa-9194-d8279a2dcd5e" />
 
-<img width="1017" height="825" alt="image" src="https://github.com/user-attachments/assets/95b6423a-d6fa-4664-a5b8-ad2852c27363" />
+
+<img width="1022" height="838" alt="image" src="https://github.com/user-attachments/assets/587eb2d7-640f-492e-b500-a9eaa910546a" />
+
 
 ## Link para a versão mais completa e detalhada do relatório
 https://docs.google.com/document/d/1bdHvsmIGJHz7NyopHqFJzUsIsbVDl_cyaSc3KNsGQfU/edit?pli=1&tab=t.0
@@ -95,4 +97,5 @@ https://docs.google.com/document/d/1bdHvsmIGJHz7NyopHqFJzUsIsbVDl_cyaSc3KNsGQfU/
 
 [![CIN- UFPE License](https://img.shields.io/badge/CIN_UFPE_LICENSE-CIN_UFPE-%23DB1E2F
 )](https://portal.cin.ufpe.br/)
+
 
