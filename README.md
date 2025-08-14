@@ -80,5 +80,9 @@ Nós lidamos com isso esboçando passo a passo o que queriamos fazer e como quer
 [![CIN- UFPE License](https://img.shields.io/badge/CIN_UFPE_LICENSE-CIN_UFPE-%23DB1E2F
 )](https://portal.cin.ufpe.br/)
 
+## Link para a versão mais completa e detalhada do relatório
+https://docs.google.com/document/d/1bdHvsmIGJHz7NyopHqFJzUsIsbVDl_cyaSc3KNsGQfU/edit?pli=1&tab=t.0
+
+
 
 
