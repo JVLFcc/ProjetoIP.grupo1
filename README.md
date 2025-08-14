@@ -62,7 +62,7 @@ Vale ressaltar que alguns membros, embora não utilizem github, contribuiram for
 
 
 ## Arquitetura do projeto:
-
+- file:///D:/Users/jvlf/Downloads/project_architecture.html
 <img width="222" height="687" alt="image" src="https://github.com/user-attachments/assets/a8d3d9c4-869f-4cce-969b-912f4be5ce50" />
                                
 
@@ -106,6 +106,7 @@ https://docs.google.com/document/d/1bdHvsmIGJHz7NyopHqFJzUsIsbVDl_cyaSc3KNsGQfU/
 
 [![CIN- UFPE License](https://img.shields.io/badge/CIN_UFPE_LICENSE-CIN_UFPE-%23DB1E2F
 )](https://portal.cin.ufpe.br/)
+
 
 
 
