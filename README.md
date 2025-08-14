@@ -1,8 +1,8 @@
- /># Projeto Final de Introdução à Programação 👋
+## Projeto Final de Introdução à Programação 👋
 
 Olá! Somos estudantes de Ciência da Computação do CIN- UFPE. Estamos realizando um projeto de jogo em Python baseado em POO.
 
-# # Nome do jogo: BitCin Fireshooter
+## BitCin Fireshooter
 
 - É um jogo do tipo bullet hell cujo terreno foi inspirado pelo minigame de Stardew Valley "Journey of the Prairie King". O objetivo consiste em eliminar os inimigos e desviar de projéteis e tentar conseguir a maior quantidade de pontos possíveis. 
 - Movimentação: utiliza-se WASD para mover-se pelo terreno e as setas direcionais para atirar.
@@ -17,6 +17,7 @@ Olá! Somos estudantes de Ciência da Computação do CIN- UFPE. Estamos realiza
 **VsCode:** IDE utilizada.
 
 **Github:** Colaboração remota, controle de versão, Branchs para colaboração paralela, hospedagem do projeto e Issues para oraganização de tarefas.
+
 ## Membros Participantes
 Vale ressaltar que alguns membros, embora não utilizem github, contribuiram fortemente por fora. 
 
@@ -26,6 +27,7 @@ Vale ressaltar que alguns membros, embora não utilizem github, contribuiram for
 - [Felipe Mateus Pereira da Silva <fmps>](https://github.com/fel201)
 - [Leonardo Gonçalves Sobral <lgs5>]()
 - [Luis Guilherme Santos de Oliveira <lgso>]()
+  
 ## Divisão de Tarefas
 
 | Membro             | Função                                                                |
@@ -42,7 +44,21 @@ Vale ressaltar que alguns membros, embora não utilizem github, contribuiram for
 
 - Estrutura de Diretórios: Os membros organizaram a estrutura do projeto em pastas para ser de mais simples acesso, e entendimento de onde cada parte fica.
 
+- Divisão de Tarefas: Foram divididas entre os membros o que deveria ser feito por cada um, e adicionado uma tarefa a mais por pessoa para caso sentisse a necessidade de auxílio na sua respectiva task.
+
 - Primeiros passos na programação do jogo.
+
+- Criação do mapa usando Tilemap.
+
+- Configurações para gerar spritesheets do player, inimigos e demais componentes que fosse necessário.
+
+- Novas idealizações sobre mecânica do jogo (coletáveis, buffs, implementações visuais, etc).
+
+- Atualização dos Diretórios: Foi aconselhado aos membros que para cada classe seria conveniente criar um arquivo .py, para assim organizar a estrutura do nosso código de forma mais intuitiva.
+
+- Passos finais da programação.
+
+- Melhorias visuais, técnicas e de experiência do jogador.
 
 
 ## Arquitetura do projeto:
@@ -66,23 +82,16 @@ Nós lidamos com isso esboçando passo a passo o que queriamos fazer e como quer
 - POO é mais importante do que a gente pensava que era. Dividr cada componente do jogo em classes foi essencial para seu desenvolvimento, e evitou que nós ficassemos repetindo código.
 - É sempre bom você pensar antes de escrever código...
 
-
 ## Screenshots
 
 <img width="1023" height="828" alt="image" src="https://github.com/user-attachments/assets/ff292d72-041f-49c4-942b-349c134cd480" />
 
 <img width="1017" height="825" alt="image" src="https://github.com/user-attachments/assets/95b6423a-d6fa-4664-a5b8-ad2852c27363" />
 
-
+## Link para a versão mais completa e detalhada do relatório
+https://docs.google.com/document/d/1bdHvsmIGJHz7NyopHqFJzUsIsbVDl_cyaSc3KNsGQfU/edit?pli=1&tab=t.0
 
 ## Badges
 
 [![CIN- UFPE License](https://img.shields.io/badge/CIN_UFPE_LICENSE-CIN_UFPE-%23DB1E2F
 )](https://portal.cin.ufpe.br/)
-
-## Link para a versão mais completa e detalhada do relatório
-https://docs.google.com/document/d/1bdHvsmIGJHz7NyopHqFJzUsIsbVDl_cyaSc3KNsGQfU/edit?pli=1&tab=t.0
-
-
-
-
