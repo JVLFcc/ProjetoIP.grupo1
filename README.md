@@ -82,6 +82,12 @@ Nós lidamos com isso esboçando passo a passo o que queriamos fazer e como quer
 - POO é mais importante do que a gente pensava que era. Dividr cada componente do jogo em classes foi essencial para seu desenvolvimento, e evitou que nós ficassemos repetindo código.
 - É sempre bom você pensar antes de escrever código...
 
+#### Dificuldades Gerais:
+- Prazo curto para entregar tudo o que queríamos;
+- Conhecimentos em POO, funções pygame e novas abordagens na resolução de problemas (que nós mesmos criávamos);
+- Simplificação de etapas;
+- Aceitar que diversos elementos que queríamos não seriam possíveis no momento presente.
+
 ## Screenshots
 
 <img width="1018" height="824" alt="image" src="https://github.com/user-attachments/assets/e8af939a-784e-42aa-9194-d8279a2dcd5e" />
@@ -97,5 +103,6 @@ https://docs.google.com/document/d/1bdHvsmIGJHz7NyopHqFJzUsIsbVDl_cyaSc3KNsGQfU/
 
 [![CIN- UFPE License](https://img.shields.io/badge/CIN_UFPE_LICENSE-CIN_UFPE-%23DB1E2F
 )](https://portal.cin.ufpe.br/)
+
 
 
