@@ -82,6 +82,9 @@ Nós lidamos com isso esboçando passo a passo o que queriamos fazer e como quer
 - POO é mais importante do que a gente pensava que era. Dividr cada componente do jogo em classes foi essencial para seu desenvolvimento, e evitou que nós ficassemos repetindo código.
 - É sempre bom você pensar antes de escrever código...
 
+#### Question 4: Qual foi sua impressão sobre o projeto?
+Eu achei que o projeto em si tem um processo de aprendizagem exponencial levando em consideração o nosso maior desafio que foi o tempo. Entretanto, pude entender mais sobre como a jornada de um projeto com um nível de complexidade mais elevado é tão importante para nós, programadores em desenvolvimento, fortalecendo bases como programação orientada a objetos, bibliotecas externas, dentre outros.
+
 #### Dificuldades Gerais:
 - Prazo curto para entregar tudo o que queríamos;
 - Conhecimentos em POO, funções pygame e novas abordagens na resolução de problemas (que nós mesmos criávamos);
@@ -103,6 +106,7 @@ https://docs.google.com/document/d/1bdHvsmIGJHz7NyopHqFJzUsIsbVDl_cyaSc3KNsGQfU/
 
 [![CIN- UFPE License](https://img.shields.io/badge/CIN_UFPE_LICENSE-CIN_UFPE-%23DB1E2F
 )](https://portal.cin.ufpe.br/)
+
 
 
 
